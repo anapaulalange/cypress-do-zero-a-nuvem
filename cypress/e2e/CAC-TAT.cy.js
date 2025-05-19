@@ -1,8 +1,10 @@
-/// 
+/// <reference types="cypress" />
 
 describe('Central de Atendimento ao Cliente TAT', () => {
   it('verifica o título da aplicação', () => {
-    cypress.visit(src/index.html)
+    cy.visit('./src/index.html')
+
+    cy.title().should('be.equal','Central de Atendimento ao Cliente TAT')
 
   })
 })
