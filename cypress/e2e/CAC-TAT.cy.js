@@ -33,4 +33,9 @@
 
         cy.get('.error').should('be.visible')
       })
+
+      it('campo telefone continua vazio quando preenchido com um valor não numérico', () => {
+        cy.get('#phone').type('abcde').should('have.value','')
+      })  
+      
     })
