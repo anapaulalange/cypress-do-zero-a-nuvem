@@ -11,11 +11,13 @@
 
 
       it.only('preenche os campos obrigatórios e envia o formulário', () => {
+        const longText = Cypress._.repeat('abcdefghijklmnopqrstuvxz', 10)
+
         cy.get('#firstName').type('Ana Paula')
         cy.get('#lastName').type('Lange Gomes')
         cy.get('#email').type('anapaula.lange@gmail.com')
         cy.get('#phone').type('41998764532')
-        cy.get('#open-text-area').type('Obrigada!')
+        cy.get('#open-text-area').type(longText, { delay: 0})
         cy.get('button[type="submit"]').click()
 
         cy.get('.success').should('be.visible')
