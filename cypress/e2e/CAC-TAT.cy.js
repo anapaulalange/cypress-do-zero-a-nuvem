@@ -37,5 +37,53 @@
       it('campo telefone continua vazio quando preenchido com um valor não numérico', () => {
         cy.get('#phone').type('abcde').should('have.value','')
       })  
+
+      it('exibe mensagem de erro quando o telefone se torna obrigatório mas não é preenchido antes do envio do formulário', () => {
+        cy.get('#firstName').type('Ana Paula')
+        cy.get('#lastName').type('Lange Gomes')
+        cy.get('#email').type('anapaula.lange@gmail.com')
+        cy.get('#phone-checkbox').click()
+        cy.get('#open-text-area').type('Test')
+        cy.get('button[type="submit"]').click()
+
+        cy.get('.error').should('be.visible')
+      })
+
+      it('preenche e limpa os campos nome, sobrenome, email e telefone', () => {
+        cy.get('#firstName').type('Ana Paula').should('have.value','Ana Paula')
+        .clear()
+        .should('have.value','')
+        cy.get('#lastName').type('Lange Gomes').should('have.value','Lange Gomes')
+        .clear()
+        .should('have.value','')
+        cy.get('#email').type('anapaula.lange@gmail.com').should('have.value','anapaula.lange@gmail.com')
+        .clear()
+        .should('have.value','')
+        cy.get('#phone').type('41998765432').should('have.value','41998765432')
+        .clear()
+        .should('have.value','')
+      })
+
+      it('exibe mensagem de erro ao submeter o formulário sem preencher os campos obrigatórios', () => {
+        cy.get('button[type="submit"]').click()
+
+        cy.get('.error').should('be.visible')
+      })  
+
+      it('envia o formulário com sucesso usando um comando customizado', () => {
+        cy.fillMandatoryFieldsAndSubmit()
+
+        cy.get('.success').should('be.visible')
+      })  
+
+      it('envia mensagem de erro ao submeter o formulario com um email com formatacao invalida', () => {
+        cy.get('#firstName').type('Ana Paula')
+        cy.get('#lastName').type('Lange Gomes')
+        cy.get('#email').type('anapaula.lange.gmail.com')
+        cy.get('#open-text-area').type('Test')
+        cy.contains('button', 'Enviar').click()
+
+        cy.get('.error').should('be.visible')
+      })
       
     })
