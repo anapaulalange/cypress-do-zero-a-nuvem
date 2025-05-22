@@ -12,6 +12,8 @@
 
 
       it('preenche os campos obrigatórios e envia o formulário', () => {
+        cy.clock()
+
         const longText = Cypress._.repeat('abcdefghijklmnopqrstuvxz', 10)
 
         cy.get('#firstName')
@@ -29,6 +31,10 @@
 
         cy.get('.success')
           .should('be.visible')
+
+        cy.tick(3000)  
+        cy.get('.success')
+          .should('not.be.visible')
       })
 
       it('exibe mensagem de erro ao submeter o formulário com um email com formatação inválida', () => {
