@@ -13,7 +13,6 @@
 
       it('preenche os campos obrigatórios e envia o formulário', () => {
         cy.clock()
-
         const longText = Cypress._.repeat('abcdefghijklmnopqrstuvxz', 10)
 
         cy.get('#firstName')
